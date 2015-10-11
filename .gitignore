@@ -11,6 +11,7 @@ Temp
 *.user
 *.pidb
 *.userprefs
+*.class
 
 Library/cache/*
 Library/metadata/*
