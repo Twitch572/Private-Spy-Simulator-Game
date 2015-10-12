@@ -1,3 +1,6 @@
+.metadata
+.recommenders
+=======
 obj
 Temp
 *.tmproj
@@ -8,6 +11,7 @@ Temp
 *.user
 *.pidb
 *.userprefs
+*.class
 
 Library/cache/*
 Library/metadata/*
