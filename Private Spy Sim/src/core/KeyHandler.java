@@ -21,8 +21,8 @@ public class KeyHandler {
 		}
 	}
 
-	public void changeBGcheck() {
-		
+	public boolean changeBGcheck() {
+		return true;
 	}
 	
 }

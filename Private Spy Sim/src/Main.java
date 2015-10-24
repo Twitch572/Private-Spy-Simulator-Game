@@ -1,11 +1,12 @@
 
+
 import processing.core.*;
 import core.*;
 import processing.opengl.*;
 
 public class Main extends PApplet{
 	
-	private PlayerStatus player;
+	private static PlayerStatus player;
 	private KeyHandler keyHandler;
 	
 	//Assets-----------
@@ -51,6 +52,10 @@ public class Main extends PApplet{
 	}
 	
 	public void keyPressed() {
+		if (keyHandler.changeBGcheck()) {
+			//bg = loadImage("assets/tempbg2.jpg");
+			return;
+		}
 		keyHandler.KeyPressed(key);
 	}
 }
