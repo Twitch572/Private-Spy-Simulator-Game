@@ -1,6 +1,8 @@
 import processing.core.*;
 
 public class Main extends PApplet{
+	
+	private Room testRoom;
 
 	public static void main(String[] args)
 	{
@@ -10,6 +12,7 @@ public class Main extends PApplet{
 	//initialize everything in here
 	public void setup()
 	{
+		testRoom = new Room(new Point(10,10,0), new Point(50,50,0), "Wood");
 			
 	}
 	public void settings() {
@@ -25,5 +28,7 @@ public class Main extends PApplet{
 	    if (mousePressed) {
 	      line(mouseX,mouseY,pmouseX,pmouseY);
 	    }
+	    //returns things to be displayed here
+	    testRoom.display();
 	}
 }
