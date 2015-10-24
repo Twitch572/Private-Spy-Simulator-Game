@@ -16,6 +16,7 @@ public class PlayerStatus {
 	private int reputation;
 	private ArrayList<Mission> missions;
 	private ArrayList<Agent> agents;
+	private int timeOfDay;
 	
 	public PlayerStatus() {
 		missions = new ArrayList<Mission>();
