@@ -6,6 +6,7 @@ public class Main extends PApplet{
 	
 	private PlayerStatus player;
 	private KeyHandler keyHandler;
+	private PImage bg;
 
 	public static void main(String[] args) {
 		PApplet.main("Main");
@@ -13,7 +14,7 @@ public class Main extends PApplet{
 
 	//initialize everything in here
 	public void setup() {
-		background(0);
+		bg = loadImage("assets/tempbg.jpg");
 		player = new PlayerStatus();
 		keyHandler = new KeyHandler(player);
 	}
@@ -24,13 +25,11 @@ public class Main extends PApplet{
 	//where the logic goes
 	//loops at 60 fps
 	public void draw() {
-	    stroke(255);
-	    if (mousePressed) {
-	      line(mouseX,mouseY,pmouseX,pmouseY);
-	    }
+	    image(bg, 0, 0);
 	}
 	
 	public void keyPressed() {
 		keyHandler.KeyPressed(key);
 	}
+	
 }
