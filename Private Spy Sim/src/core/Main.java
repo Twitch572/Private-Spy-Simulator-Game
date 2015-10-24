@@ -1,7 +1,11 @@
 package core;
 import processing.core.*;
+import agents.*;
+import missions.*;
 
 public class Main extends PApplet{
+	
+	private PlayerStatus player;
 
 	public static void main(String[] args) {
 		PApplet.main("Main");
@@ -10,9 +14,10 @@ public class Main extends PApplet{
 	//initialize everything in here
 	public void setup() {
 		background(0);
+		player = new PlayerStatus();
 	}
 	public void settings() {
-		  size(200, 200);
+		  size(500, 500);
 	}
 	
 	//where the logic goes
