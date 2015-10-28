@@ -22,7 +22,7 @@ public class Main extends PApplet {
 	// initialize everything in here
 	public void setup() {
 		
-		ShaderTex = createImage(865, 480, ARGB);
+		ShaderTex = createImage(GameSettings.winx, GameSettings.winy, ARGB);
 		background(90);
 		player = new PlayerStatus();
 		keyHandler = new KeyHandler(player);
@@ -40,15 +40,14 @@ public class Main extends PApplet {
 	public void MainMenu() {
 		ortho();
 		shader(MenuBG);
-		fill(180);
 		MenuBG.set("time", millis() / 1000.0f);
 		textureMode(NORMAL);
 		beginShape();
 		texture(ShaderTex);
 		vertex(0, 0, -9, 0.0f, 0.0f);
-		vertex(865, 0, -9, 1.0f, 0.0f);
-		vertex(865, 480, -9, 1.0f, 1.0f);
-		vertex(0, 480, -9, 0.0f, 1.0f);
+		vertex(GameSettings.winx, 0, -9, 1.0f, 0.0f);
+		vertex(GameSettings.winx, GameSettings.winy, -9, 1.0f, 1.0f);
+		vertex(0, GameSettings.winy, -9, 0.0f, 1.0f);
 		endShape(CLOSE);
 		resetShader();
 		fill(0);
@@ -56,11 +55,30 @@ public class Main extends PApplet {
 		textFont(pixfont);
 		text("The Game", 236, 68);
 	}
-
+	public void BackgroundLayer(){
+		ortho();
+		background(60);
+		/*shader(MenuBG);
+		MenuBG.set("time", millis() / 1000.0f);
+		textureMode(NORMAL);
+		beginShape();
+		texture(ShaderTex);
+		vertex(0, 0, -9, 0.0f, 0.0f);
+		vertex(GameSettings.winx, 0, -9, 1.0f, 0.0f);
+		vertex(GameSettings.winx, GameSettings.winy, -9, 1.0f, 1.0f);
+		vertex(0, GameSettings.winy, -9, 0.0f, 1.0f);
+		endShape(CLOSE);
+		resetShader();*/
+		
+	}
+	public void BuildingLayer(){
+		ortho();
+	}
 	// where the logic goes
 	// loops at 60 fps
 	public void draw() {
-		MainMenu();
+		//MainMenu();
+		BackgroundLayer();
 	}
 
 	public void keyPressed() {
