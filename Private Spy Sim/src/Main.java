@@ -1,34 +1,41 @@
+
 import processing.core.*;
+import processing.event.MouseEvent;
+import core.*;
 
-public class Main extends PApplet{
 	
-	private Room testRoom;
+public class Main extends Renderer {
 
-	public static void main(String[] args)
-	{
+	private static PlayerStatus player = new PlayerStatus();
+	private static InputHandler inputHandler = new InputHandler(player);
+	
+	public static void main(String[] args) {
 		PApplet.main("Main");
-	}
-
-	//initialize everything in here
-	public void setup()
-	{
-		testRoom = new Room(new Point(10,10,0), new Point(50,50,0), "Wood");
-			
-	}
-	public void settings() {
-		  size(200, 200);
+		while (true){ //Might seem sketchy, but processing's environment automatically kills the program on close or call to exit() so to decouple the game from the graphics this is ok.
+		
+		}
 	}
 	
-	//where the logic goes
-	//loops as fast as it can
-	public void draw()
-	{
-
-	    stroke(255);
-	    if (mousePressed) {
-	      line(mouseX,mouseY,pmouseX,pmouseY);
-	    }
-	    //returns things to be displayed here
-	    testRoom.display();
+	public void keyPressed(){
+		inputHandler.UniversalKeyPress(key);
+		switch(GameData.AppData.context){
+		case GameData.AppData.MainMenu:
+			inputHandler.MenuKeyPress(key);
+		case GameData.AppData.Game:
+			inputHandler.GameKeyPress(key);
+		}
 	}
+	public void mouseWheel(MouseEvent event){
+		int e = event.getCount();
+		//System.out.println(e);
+		inputHandler.GameScrollWheel(e);
+	}
+	
+
+	public void mouseDragged(MouseEvent event){
+		Renderer.moveview(mouseX-pmouseX,mouseY-pmouseY);
+	}
+
+	// initialize everything in here
+
 }
