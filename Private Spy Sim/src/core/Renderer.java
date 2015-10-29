@@ -92,17 +92,23 @@ public class Renderer extends PApplet {
 		ortho();
 		translate(basecs.copy().add(pan));
 		rotateZ(rotationangle);
-		fill(222,133,222);
-		rect(-160*zoomlevel,-80*zoomlevel,320*zoomlevel,160*zoomlevel);
-		rect(-80*zoomlevel,-240*zoomlevel,160*zoomlevel,160*zoomlevel);
-		noSmooth();
-		fill(255);
-		ellipse(-160*zoomlevel,-80*zoomlevel,5,5);
-		ellipse(-80*zoomlevel,-240*zoomlevel,5,5);
-		noStroke();
+		LoadFloors();
+		
 	}
 	private void LoadFloors(){
-		
+		for(GameData.BuildingData.room croom : GameData.CurrentBD.roomlist){
+			DrawRoom(croom);
+		}
+	}
+	private void DrawRoom(GameData.BuildingData.room room){
+		fill(222,133,222);
+		rect(room.root.x*zoomlevel,room.root.y*zoomlevel,room.width*zoomlevel,room.height*zoomlevel);
+		if(GameSettings.DEBUG){
+			fill(255);
+			noStroke();
+			ellipse(room.root.x*zoomlevel,room.root.y*zoomlevel,5,5);
+			stroke(0);
+		}
 	}
 	private void translate(PVector in){
 		translate(in.x,in.y);
