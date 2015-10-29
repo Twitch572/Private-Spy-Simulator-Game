@@ -17,10 +17,8 @@ public class PlayerStatus {
 	private ArrayList<Mission> missions;
 	private ArrayList<Agent> agents;
 	private int timeOfDay;
-	public int activeScreen;
 	
 	public PlayerStatus() {
-		activeScreen = GameSettings.TITLE_SCREEN;
 		missions = new ArrayList<Mission>();
 		agents = new ArrayList<Agent>();
 	}
