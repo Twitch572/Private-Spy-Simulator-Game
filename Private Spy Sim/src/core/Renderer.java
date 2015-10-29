@@ -84,7 +84,6 @@ public class Renderer extends PApplet {
 		textFont(pixfont);
 		text("The Game", 236, 68);
 	}
-
 	private void BackgroundLayer() {
 		ortho();
 		background(50);
@@ -93,11 +92,17 @@ public class Renderer extends PApplet {
 		ortho();
 		translate(basecs.copy().add(pan));
 		rotateZ(rotationangle);
-		fill(188);
-		rect(-75*zoomlevel,-75*zoomlevel,150*zoomlevel,150*zoomlevel);
-		rect(75*zoomlevel,-75*zoomlevel,150*zoomlevel,150*zoomlevel);
-		rect(75*zoomlevel,75*zoomlevel,150*zoomlevel,150*zoomlevel);
-
+		fill(222,133,222);
+		rect(-160*zoomlevel,-80*zoomlevel,320*zoomlevel,160*zoomlevel);
+		rect(-80*zoomlevel,-240*zoomlevel,160*zoomlevel,160*zoomlevel);
+		noSmooth();
+		fill(255);
+		ellipse(-160*zoomlevel,-80*zoomlevel,5,5);
+		ellipse(-80*zoomlevel,-240*zoomlevel,5,5);
+		noStroke();
+	}
+	private void LoadFloors(){
+		
 	}
 	private void translate(PVector in){
 		translate(in.x,in.y);
