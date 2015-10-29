@@ -30,7 +30,7 @@ public class GameData {
 		public ArrayList<room> roomlist = new ArrayList<room>();
 			BuildingData(){
 				roomlist.add(new room(ADMINDESK, 1));
-				roomlist.add(new room(LOBBY, 1,roomlist.get(0),(byte) 3));
+				roomlist.add(new room(LOBBY, 1,roomlist.get(0), (byte)21 ,(byte) 31));
 				System.out.println(roomlist);
 			}
 		public static class room {
@@ -39,9 +39,18 @@ public class GameData {
 			public int level;// Level of the room, might effect size or shape.
 			public room parent;// Reference to the room this room was built off
 								// of
-			public byte phook;// The hook on the parent which the room branches
-								// from. 0 is none, 1 is top, 2 right, 3 bottom,
-								// 4 left
+			public byte phook;// The hook on the parent which the room branches.
+								// hook format uses the first digit to define the side
+								// side of the room: 1 top, 2 right, 3 bottom, 4 left
+								// the second digit counts along the side. The order goes
+								// clockwise. So for the top hook on the left side of a 
+								// lobby the hook would be 44. For rooms with only 1 hook on a
+								// side the last digit is irrelevant. 
+								// A value of 0 indicates no hook, as is the
+								// case for the admin room
+			
+			public byte hook;
+			
 			public PVector root;// The root coordinates the room will be drawn
 								// from
 			public final int width;// The width of the rect that will draw the
@@ -49,14 +58,15 @@ public class GameData {
 			public final int height;// The height of the rect that will draw the
 									// room
 
-			room(byte type, int level, room parent, byte hook) {
+			room(byte type, int level, room parent, byte phook,byte hook) {
 				this.type = type;
 				this.level = level;
 				this.parent = parent;
+				this.phook = phook;
 				this.phook = hook;
 				this.width = getWidth(this.type, this.level);
 				this.height = getHeight(this.type, this.level);
-				this.root = new PVector(160, -240);
+				this.root = getRoot();
 			}
 
 			room(byte type, int level) {
@@ -67,13 +77,19 @@ public class GameData {
 				this.type = type;
 				this.level = level;
 				this.parent = null;
-				this.root = new PVector(-160, -80);
-				this.phook = 0;
+				this.root= new PVector(-160,-80);
 				this.width = getWidth(this.type, this.level);
 				this.height = getHeight(this.type, this.level);
+				
+			}
+			public PVector getRoot(){
+				byte pside = (byte)(this.phook/10);
+				byte sh = (byte)(this.phook%10);
+				return(new PVector(0,0));
 			}
 
 		}
+		
 
 		public static int getWidth(byte type, int level) {
 			if (type == 0) {
