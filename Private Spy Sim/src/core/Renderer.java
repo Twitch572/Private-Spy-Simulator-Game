@@ -107,6 +107,12 @@ public class Renderer extends PApplet {
 			fill(255);
 			noStroke();
 			ellipse(room.root.x*zoomlevel,room.root.y*zoomlevel,5,5);
+			stroke(255);
+			if(room.type == GameData.BuildingData.ADMINDESK){
+			line(zoomlevel*room.root.x+room.width/2*zoomlevel,zoomlevel*room.root.y-5,zoomlevel*room.root.x+room.width/2*zoomlevel,zoomlevel*room.root.y+5);
+			line(zoomlevel*room.root.x+room.width*zoomlevel-5,zoomlevel*room.root.y+room.height/2*zoomlevel,zoomlevel*room.root.x+room.width*zoomlevel + 5,zoomlevel*room.root.y+room.height/2*zoomlevel);
+			line(zoomlevel*room.root.x-5,zoomlevel*room.root.y+room.height/2*zoomlevel,zoomlevel*room.root.x+5,zoomlevel*room.root.y+room.height/2*zoomlevel);
+			}
 			stroke(0);
 		}
 	}

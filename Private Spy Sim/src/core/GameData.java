@@ -2,7 +2,6 @@ package core;
 
 import java.util.ArrayList;
 
-import core.GameData.BuildingData.room;
 import processing.core.PVector;
 
 public class GameData {
@@ -30,7 +29,7 @@ public class GameData {
 		public ArrayList<room> roomlist = new ArrayList<room>();
 			BuildingData(){
 				roomlist.add(new room(ADMINDESK, 1));
-				roomlist.add(new room(LOBBY, 1,roomlist.get(0), (byte)21 ,(byte) 31));
+				//roomlist.add(new room(LOBBY, 1,roomlist.get(0), (byte)21 ,(byte) 31));
 				System.out.println(roomlist);
 			}
 		public static class room {
@@ -57,6 +56,7 @@ public class GameData {
 									// room
 			public final int height;// The height of the rect that will draw the
 									// room
+			private int[] ohooks = new int[8];
 
 			room(byte type, int level, room parent, byte phook,byte hook) {
 				this.type = type;
@@ -83,8 +83,12 @@ public class GameData {
 				
 			}
 			public PVector getRoot(){
+				this.parent.ohooks[0] = phook;
 				byte pside = (byte)(this.phook/10);
-				byte sh = (byte)(this.phook%10);
+				byte psh = (byte)(this.phook%10);
+				if(this.parent.type == ADMINDESK){
+					
+				}
 				return(new PVector(0,0));
 			}
 
