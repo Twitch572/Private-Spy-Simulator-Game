@@ -11,6 +11,7 @@ public class Main extends Renderer {
 	
 	public static void main(String[] args) {
 		PApplet.main("Main");
+		GameData.startGame();
 		while (true){ //Might seem sketchy, but processing's environment automatically kills the program on close or call to exit() so to decouple the game from the graphics this is ok.
 		
 		}
