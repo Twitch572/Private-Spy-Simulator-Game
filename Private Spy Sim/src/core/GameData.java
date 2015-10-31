@@ -1,6 +1,7 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import processing.core.PVector;
 
@@ -24,13 +25,10 @@ public class GameData {
 		public final static byte HR = 2;
 		public final static byte RND = 3;
 		public final static byte SURVEY = 4;
-		//public final static room admin = ;// Every game has a admin room placed at the root of the coordinate system
-		//public final static room lobby = ;
 		public ArrayList<room> roomlist = new ArrayList<room>();
 			BuildingData(){
 				roomlist.add(new room(ADMINDESK, 1));
-				roomlist.add(new room(LOBBY, 1,roomlist.get(0), (byte)20 ,(byte) 41));
-				roomlist.add(new room(LOBBY, 1,roomlist.get(1), (byte)33 ,(byte) 13));
+				roomlist.add(new room(HR, 1,roomlist.get(0),new byte[]{2,0}));
 				System.out.println(roomlist);
 			}			
 /*
@@ -50,17 +48,18 @@ public class GameData {
 			public PVector root;
 			public final int width;
 			public final int height;
-			private int[] ohooks = new int[8];
+			public byte[] gridspace = new byte[3*16];
 
-			room(byte type, int level, room parent, byte phook,byte hook) {
+			room(byte type, int level, room parent, byte[] pcoord) {
+				for(int i = 0; i < 3*16;i+=2){
+						gridspace[i] = -1;
+				}
 				this.type = type;
 				this.level = level;
 				this.parent = parent;
 				this.width = getWidth(this.type, this.level);
 				this.height = getHeight(this.type, this.level);
-				this.parent.ohooks[0] = phook;
-				this.ohooks[0] = hook;
-				this.root = getRoot(phook, hook);
+				this.root = getRoot(pcoord);
 			}
 
 			room(byte type, int level) {
@@ -71,66 +70,32 @@ public class GameData {
 				this.type = type;
 				this.level = level;
 				this.parent = null;
-				this.root= new PVector(-160,-80);
+				this.root= new PVector(0,0);
 				this.width = getWidth(this.type, this.level);
 				this.height = getHeight(this.type, this.level);
 				
 			}
-			public PVector getRoot(byte phook, byte hook){
+			public PVector getRoot(byte[] pcoord){
 				int x =0, y=0;
-				PVector phcoord = new PVector(0,0);
-				byte pside = (byte)(phook/10);
-				byte psh = (byte)(phook%10);
-				byte side = (byte)(hook/10);
-				byte sh = (byte)(hook%10);
 				if(this.parent.type == ADMINDESK){
-					switch(pside){
-					case 2: 
-						phcoord.set((int)this.parent.root.x+this.parent.width,(int)this.parent.root.y+this.parent.height/2);
-						break;
-					case 4:
-						phcoord.set((int)this.parent.root.x,(int)this.parent.root.y+this.parent.height/2);
-						break;
-					}
+					
 				}
 				else if(this.parent.type == LOBBY){
-					switch(pside){
-					case 1:
-						phcoord.set(this.parent.root.x + ((psh+1)*this.parent.width/4)-this.parent.width/8,this.parent.root.y);
-						break;
-					case 2: 
-						phcoord.set(this.parent.root.x+this.width,this.parent.root.y + ((psh+1)*this.parent.height/4)-this.parent.height/8);
-						break;
-					case 3:
-						phcoord.set(this.parent.root.x /*+ ((psh)*this.parent.width/4)-this.parent.width/8*/,this.parent.root.y+this.parent.height);
-						break;
-					case 4:
-						phcoord.set(this.parent.root.x+this.width,this.parent.root.y + ((psh+1)*this.parent.height/4)-this.parent.height/8);
-						break;
-					}
+
+				}
+				else if(this.parent.type == HR){
+					
 				}
 				
 				if(this.type == LOBBY){
 					
-					switch(side){
-					case 1:
-						x  = (int)phcoord.x - (sh*this.width/4)-this.width/8;
-						y = (int)phcoord.y;
-						break;
-					case 2:
-						x = (int)phcoord.x-this.width;
-						y = -(int)phcoord.y - (sh*this.height/4)-this.height/8;
-						break;
-					case 3:
-						x  = (int)phcoord.x - ((3-sh)*this.width/4)-this.width/8;
-						y = (int)phcoord.y-this.height;
-						break;
-					case 4:
-						x = (int)phcoord.x;
-						y = (int)phcoord.y - ((3-sh)*this.height/4)-this.width/8;
-						break;
-
-					}
+				}
+				else if(this.type == HR){
+					this.gridspace[0]=pcoord[0];this.gridspace[1]=pcoord[1];
+					this.gridspace[2] = this.type;
+					
+					x = pcoord[0]*160;
+					y = pcoord[1]*160;
 				}
 				return(new PVector(x,y));
 			}
