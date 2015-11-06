@@ -1,11 +1,18 @@
 package core;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import missions.*;
 import processing.core.PVector;
 
 public class GameData {
+	
+	public static PlayerStatus PlayerData = new PlayerStatus();
+	
+	public GameData() {
+		PlayerData.addMission(new AssassinateMission(3, 1));
+	}
+	
 	public static BuildingData CurrentBD = new BuildingData();
 	public static class AppData {
 		public static int context = 0;
@@ -17,7 +24,6 @@ public class GameData {
 		public static String path = "./saves/save1.sv";
 	}
 
-	public static PlayerStatus PlayerData = new PlayerStatus();
 
 	public static class BuildingData {
 		public final static byte ADMINDESK = 0;

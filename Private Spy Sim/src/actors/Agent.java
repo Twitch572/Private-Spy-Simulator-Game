@@ -1,6 +1,9 @@
 /** Agent class 
  * Cole Twitchell
- * Private Spy Sim
+ * 
+ * This class will represent a basic agent.
+ * Agents can be owned by any faction.
+ * 
  */
 
 package actors;
@@ -10,6 +13,7 @@ import missions.*;
 public class Agent extends Actor {
 	
 	private int actionStat, charismaStat, techStat, stealthStat;
+	private Actor target;
 	
 	// default constructor
 	public Agent(String name) {
@@ -47,5 +51,7 @@ public class Agent extends Actor {
 	public void setTech(int newStat) {techStat = newStat;}
 	public int getStealth() {return stealthStat;}
 	public void setStealth(int newStat) {stealthStat = newStat;}
+	public Actor getTarget() {return target;}
+	public void setTarget(Actor newTarget) {target = newTarget;}
 	
 }

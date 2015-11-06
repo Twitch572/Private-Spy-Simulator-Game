@@ -10,6 +10,8 @@ public class Renderer extends PApplet {
 	PImage ShaderTex;
 	int[] winloc = new int[2];
 	
+	PImage menuFrame;
+	
 	private static int winx = GameSettings.winx;
 	private static int winy = GameSettings.winy;
 	private static float zoomlevel = 1.0f;
@@ -22,6 +24,7 @@ public class Renderer extends PApplet {
 		ShaderTex = createImage(winx, winy, ARGB);
 		background(90);
 		frame = loadImage("../assets/ui/folderframe.png");
+		menuFrame = loadImage("../assets/ui/temp_in-game_frame.png");
 		pixfont = createFont("../assets/ui/VCR_OSD_MONO.ttf", 28);
 		MenuBG = loadShader("../assets/shaders/MenuFrag.glsl", "../assets/shaders/PixelVert.glsl");
 		MenuBG.set("ar", (float) winy / (float) winx);
@@ -41,6 +44,8 @@ public class Renderer extends PApplet {
 		case 1:
 			BackgroundLayer();
 			FloorLayer();
+			MenuLayer();
+			break;
 		}
 	}
 	
@@ -94,6 +99,9 @@ public class Renderer extends PApplet {
 		rotateZ(rotationangle);
 		LoadFloors();
 		
+	}
+	private void MenuLayer() {
+		image(menuFrame, -GameSettings.winx/2-pan.x, -GameSettings.winy/2-pan.y);
 	}
 	private void LoadFloors(){
 		for(GameData.BuildingData.room croom : GameData.CurrentBD.roomlist){

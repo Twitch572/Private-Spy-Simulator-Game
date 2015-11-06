@@ -4,7 +4,7 @@ import missions.*;
 
 import java.util.ArrayList;
 
-import agents.*;
+import actors.*;
 
 /* a class to represent all of the player's current resources.
  * - money, reputation
