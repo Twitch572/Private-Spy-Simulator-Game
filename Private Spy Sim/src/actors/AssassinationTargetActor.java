@@ -17,7 +17,8 @@ public class AssassinationTargetActor extends Actor {
 	}
 	
 	public void actorKilled() {
-		((AssassinateMission)super.getMission()).setState(0);
+		super.getMission().removeActor(this);
+		((AssassinateMission)super.getMission()).setState(1);
 	}
 	
 }

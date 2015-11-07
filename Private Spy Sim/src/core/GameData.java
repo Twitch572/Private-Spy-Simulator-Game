@@ -2,6 +2,8 @@ package core;
 
 import java.util.ArrayList;
 
+import actors.Agent;
+import actors.Faction;
 import missions.*;
 import processing.core.PVector;
 
@@ -10,7 +12,13 @@ public class GameData {
 	public static PlayerStatus PlayerData = new PlayerStatus();
 	
 	public GameData() {
-		PlayerData.addMission(new AssassinateMission(3, 1));
+		/* The following is simply for testing purposes. Feel free
+		 * to delete it at will. This is to test the implementation
+		 * of missions and agents as well as their interactions.
+		 */
+		AssassinateMission mission = new AssassinateMission(3, 1, 2000, 100);
+		PlayerData.addMission(mission);
+		PlayerData.addAgent(new Agent("PlayerAgent #1", mission, Faction.PLAYER, 100, 100, 100, 100));
 	}
 	
 	public static BuildingData CurrentBD = new BuildingData();

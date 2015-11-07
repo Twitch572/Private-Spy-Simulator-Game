@@ -29,9 +29,26 @@ public class AssassinateMission extends Mission {
 		public void removeActor(Actor actor) {actors.remove(actors.indexOf(actor));}
 	}
 
-	public AssassinateMission(int nodeCount, int enemyCount) {
-		super(nodeCount);
+	public AssassinateMission(int nodeCount, int enemyCount, int missionValue) {
+		super(nodeCount, missionValue);
+		missionState = 0;
 		enemies = new Agent[enemyCount];
+		for (int i=0; i<enemyCount; i++) {
+			enemies[i] = new Agent("Enemy #" + i, this, Faction.RUSSIA);
+		}
+	}
+	public AssassinateMission(int nodeCount, int enemyCount, int missionValue, int reputationValue) {
+		super(nodeCount, missionValue, reputationValue);
+		missionState = 0;
+		enemies = new Agent[enemyCount];
+		for (int i=0; i<enemyCount; i++) {
+			enemies[i] = new Agent("Enemy #" + i, this, Faction.RUSSIA);
+		}
+	}
+	
+	public void setAgent(Agent playerAgent) {
+		super.setPlayerAgent(playerAgent);
+		target = playerAgent.getTarget();
 	}
 	
 }

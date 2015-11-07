@@ -9,10 +9,18 @@ public abstract class Mission {
 	private String location;
 	private int missionState;
 	private MissionNode[] nodes;
+	private final int playerStart = 0;
 	private Agent playerAgent;
+	public int missionValue;
+	public int reputationValue;
 	
-	public Mission(int nodeCount) {
+	public Mission(int nodeCount, int missionValue) {
 		nodes = new MissionNode[nodeCount];
+		reputationValue = 50;
+	}
+	public Mission(int nodeCount, int missionValue, int reputationValue) {
+		nodes = new MissionNode[nodeCount];
+		this.reputationValue = reputationValue;
 	}
 	
 	private class MissionNode {
@@ -36,7 +44,19 @@ public abstract class Mission {
 		}
 	}
 
+	public Agent getPlayerAgent() {return playerAgent;}
+	public void setPlayerAgent(Agent agent) {
+		playerAgent = agent;
+		nodes[playerStart].addActor(agent);
+	}
 	public int getState() {return missionState;}
 	public void setState(int state) {missionState = state;}
+	public int getMissionValue() {return missionValue;}
+	public int getReputationValue() {return reputationValue;}
+	public void removeActor(Actor actor) {
+		for (MissionNode node : nodes) {
+			node.removeActor(actor);
+		}
+	}
 	
 }

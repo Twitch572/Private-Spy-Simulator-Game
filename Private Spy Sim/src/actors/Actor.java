@@ -16,6 +16,6 @@ public abstract class Actor {
 	public Mission getMission() {return mission;}
 	public void setMission(Mission newMission) {mission = newMission;}
 	
-	public void interactWith(Actor actor) {	};
+	public void interactWith(Actor actor) { }
 	
 }

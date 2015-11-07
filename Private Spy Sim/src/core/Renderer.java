@@ -42,11 +42,15 @@ public class Renderer extends PApplet {
 			MainMenu();
 			break;
 		case 1:
+			update();
 			BackgroundLayer();
 			FloorLayer();
 			MenuLayer();
 			break;
 		}
+	}
+	public void update() {
+		GameData.PlayerData.update();
 	}
 	
 	public static void enterGameView(){
