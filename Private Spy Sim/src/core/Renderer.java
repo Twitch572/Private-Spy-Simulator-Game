@@ -5,11 +5,13 @@ import processing.opengl.*;
 
 public class Renderer extends PApplet {
 	PImage frame;
+	PImage inGameBG;
+	
 	PFont pixfont;
 	PShader MenuBG;
 	PImage ShaderTex;
 	int[] winloc = new int[2];
-	
+	int[][] roomloc;
 	PImage menuFrame;
 	
 	private static int winx = GameSettings.winx;
@@ -19,12 +21,12 @@ public class Renderer extends PApplet {
 	private static PVector basecs = new PVector(winx/2,winy/2);
 	private static float rotationangle = 0.0f;
 	
-	public void setup() {
-		//basecs.set(winx/2,winy/2);
+	public void setup() {		
 		ShaderTex = createImage(winx, winy, ARGB);
-		background(90);
+		background(0);
 		frame = loadImage("../assets/ui/folderframe.png");
-		menuFrame = loadImage("../assets/ui/temp_in-game_frame.png");
+		inGameBG = loadImage("../assets/backgrounds/IslandPSG.png");
+		menuFrame = loadImage("../assets/ui/GameInterface.png");
 		pixfont = createFont("../assets/ui/VCR_OSD_MONO.ttf", 28);
 		MenuBG = loadShader("../assets/shaders/MenuFrag.glsl", "../assets/shaders/PixelVert.glsl");
 		MenuBG.set("ar", (float) winy / (float) winx);
@@ -44,7 +46,6 @@ public class Renderer extends PApplet {
 		case 1:
 			update();
 			BackgroundLayer();
-			FloorLayer();
 			MenuLayer();
 			break;
 		}
@@ -60,10 +61,9 @@ public class Renderer extends PApplet {
 	public static void incrZoom(boolean in){
 		if(in & zoomlevel+GameSettings.zoomincr < 5.0f){
 			zoomlevel+=GameSettings.zoomincr;
-			}
-		else if(zoomlevel-GameSettings.zoomincr > .1f){
+		} else if(zoomlevel-GameSettings.zoomincr > .1f){
 			zoomlevel-=GameSettings.zoomincr;
-			}
+		}
 	}
 	public static void setZoom(int in){
 		if(in > .1f & in < 5.0f){
@@ -95,38 +95,12 @@ public class Renderer extends PApplet {
 	}
 	private void BackgroundLayer() {
 		ortho();
-		background(50);
-	}
-	private void FloorLayer(){
-		ortho();
 		translate(basecs.copy().add(pan));
-		rotateZ(rotationangle);
-		LoadFloors();
-		
+		image(inGameBG, -inGameBG.width/2, -inGameBG.height/2);
 	}
 	private void MenuLayer() {
+		ortho();
 		image(menuFrame, -GameSettings.winx/2-pan.x, -GameSettings.winy/2-pan.y);
-	}
-	private void LoadFloors(){
-		for(GameData.BuildingData.room croom : GameData.CurrentBD.roomlist){
-			DrawRoom(croom);
-		}
-	}
-	private void DrawRoom(GameData.BuildingData.room room){
-		fill(222,133,222);
-		rect(room.root.x*zoomlevel,room.root.y*zoomlevel,room.width*zoomlevel,room.height*zoomlevel);
-		if(GameSettings.DEBUG){
-			fill(255);
-			noStroke();
-			ellipse(room.root.x*zoomlevel,room.root.y*zoomlevel,5,5);
-			stroke(255);
-			if(room.type == GameData.BuildingData.ADMINDESK){
-			line(zoomlevel*room.root.x+room.width/2*zoomlevel,zoomlevel*room.root.y-5,zoomlevel*room.root.x+room.width/2*zoomlevel,zoomlevel*room.root.y+5);
-			line(zoomlevel*room.root.x+room.width*zoomlevel-5,zoomlevel*room.root.y+room.height/2*zoomlevel,zoomlevel*room.root.x+room.width*zoomlevel + 5,zoomlevel*room.root.y+room.height/2*zoomlevel);
-			line(zoomlevel*room.root.x-5,zoomlevel*room.root.y+room.height/2*zoomlevel,zoomlevel*room.root.x+5,zoomlevel*room.root.y+room.height/2*zoomlevel);
-			}
-			stroke(0);
-		}
 	}
 	private void translate(PVector in){
 		translate(in.x,in.y);

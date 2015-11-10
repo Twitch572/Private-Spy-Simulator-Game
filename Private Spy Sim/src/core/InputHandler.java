@@ -17,14 +17,14 @@ public class InputHandler {
 	}
 	public void MenuKeyPress(int keyCode) {
 		switch(keyCode) {
-		case 10: // escape pressed
+		case 10: // enter pressed
 			GameData.startGame();
 			break;
 		}
 	}
 	public void GameKeyPress(int keyCode) {
 		switch(keyCode) {
-		case 70: // escape pressed
+		case 70: // 'F' pressed
 			System.out.print("Center camera");
 			break;
 		}
